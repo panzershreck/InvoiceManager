@@ -1,0 +1,17 @@
+<div class="panel-footer">
+  <div class="row">
+    <div class="col-lg-6 col-md-6">
+      <button type="button" class="btn btn-info" ng-click="page.isCollapsed = !page.isCollapsed;" tooltip="{{ page.isCollapsed ? 'Развернуть' : 'Свернуть' }}">
+        <span class="glyphicon" ng-class="{ 'glyphicon-collapse-up': !page.isCollapsed, 'glyphicon-collapse-down': page.isCollapsed }"></span>
+      </button>
+    </div>
+    <div class="col-lg-6 col-md-6 text-right">
+      <button type="submit" class="btn btn-default" ng-disabled="isSaving">
+        Сохранить
+      </button>
+      <button type="button" class="btn btn-primary" ng-click="toQueue()" ng-disabled="isSaving">
+        В очередь
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,87 @@
+<div ng-controller="InvoiceController">
+  <div class="hidden-print">
+    <form class="form-horizontal" name="invoiceForm" ng-submit="saveInvoice()" novalidate>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          Добавление/редактирование
+        </div>
+        <div class="panel-body">
+          <div class="loading-button" ng-show="isSaving">
+            <button class="btn btn-lg btn-warning">
+              <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+              Подождите...
+            </button>
+          </div>
+
+          <h3 class="visible-print text-center text-uppercase">Накладная</h3>
+
+          <div class="alert-container">
+            <alert class="animate-if" ng-repeat="alert in alerts" type="{{ alert.type }}" close="closeAlert($index)" >
+              {{ alert.msg }}
+            </alert>
+          </div>
+
+          <div class="row">
+            <div class="form-group" show-errors>
+              <label for="invoice-date" class="control-label col-lg-1 col-md-2">
+                Дата:
+              </label>
+
+              <div class="col-lg-3 col-md-5">
+                <div class="input-group">
+                  <input id="invoice-date" name="date" type="text" class="form-control" datepicker-popup="EEEE, d MMMM yyyy" ng-model="currentInvoice.date"
+                         current-text="Сегодня" clear-text="Очистить" close-text="Закрыть" is-open="datepickerOpened" ng-required="true">
+
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="openDatepicker($event)">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                  </span>
+                </div>
+              </div>
+
+              <div class="btn-group col-lg-4" role="group">
+                <button type="button" class="btn btn-info" ng-click="yesterday()">Вчера</button>
+                <button type="button" class="btn btn-info" ng-click="today()">Сегодня</button>
+                <button type="button" class="btn btn-info" ng-click="tomorrow()">Завтра</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group" ng-class="{ 'has-error': invoiceForm.client.$invalid && (invoiceForm.client.$dirty || invoiceForm.$submitted) }">
+
+              <label for="invoice-client" class="control-label col-lg-1 col-md-2">
+                Кому:
+              </label>
+
+              <div class="col-lg-5 col-md-9">
+                <ui-select name="client" ng-model="currentInvoice.ClientId" theme="bootstrap" required>
+                  <ui-select-match placeholder="Выберите клиента...">{{$select.selected.title}}</ui-select-match>
+                  <ui-select-choices repeat="client.id as client in clients | filter : $select.search">
+                    <div ng-bind-html="client.title | highlight : $select.search"></div>
+                    <!--<small ng-bind-html="client.email | highlight : $select.search"></small>-->
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div ng-include="'client/views/invoice/footer.html'"></div>
+
+        <div collapse="page.isCollapsed">
+          <div ng-include="'client/views/invoice/products.html'"></div>
+        </div>
+
+        <div ng-include="'client/views/invoice/footer.html'"></div>
+      </div>
+    </form>
+  </div>
+
+  <div ng-controller="PrintQueueController">
+    <div class="hidden-print" ng-include="'client/views/invoice/printQueue.html'"></div>
+
+    <div class="visible-print" ng-include="'client/views/invoice/addedProduct.html'"></div>
+  </div>
+</div>

@@ -1,0 +1,73 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    Очередь печати
+  </div>
+  <div class="panel-body">
+    <div ng-hide="printQueue.length > 0">
+      Нет документов для печати
+    </div>
+
+  </div>
+  <table ng-show="printQueue.length > 0" class="print-queue-table table table-hover table-striped">
+    <thead>
+    <tr>
+      <th>
+        №
+      </th>
+      <th>
+        Дата
+      </th>
+      <th>
+        Клиент
+      </th>
+      <th>
+        Сумма
+      </th>
+      <th>
+        Обновлена
+      </th>
+      <th>
+        Количество копий
+      </th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="invoice in printQueue">
+      <td>
+        {{ $index + 1 }}
+      </td>
+      <td>
+        {{ invoice.date | date : 'mediumDate' }}
+      </td>
+      <td>
+        {{ invoice.Client.title }}
+      </td>
+      <td>
+        {{ invoice.totals.sum }}
+      </td>
+      <td>
+        {{ invoice.updatedAt | date : 'medium' }}
+      </td>
+      <td>
+        <number-only-input input-max="99" input-min="1" input-value="invoice.printCopies"></number-only-input>
+      </td>
+      <td>
+
+      </td>
+      <td>
+        <span class="glyphicon glyphicon-edit text-info" tooltip="Редактировать" ng-click="edit($index)"></span>
+        <span class="glyphicon glyphicon-remove text-danger" tooltip="Удалить" ng-click="remove($index, printQueue)"></span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="panel-footer text-right" ng-show="printQueue.length > 0">
+    <button type="button" class="btn btn-warning" ng-click="clear(printQueue)">
+      Очистить
+    </button>
+    <button type="button" class="btn btn-primary" ng-click="print(printQueue)">
+      Печать
+    </button>
+  </div>
+</div>

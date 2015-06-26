@@ -1,0 +1,64 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Настройки
+  </div>
+
+  <div class="panel-body">
+    <div class="alert-container">
+      <alert class="animate-if" ng-repeat="alert in alerts" type="{{ alert.type }}" close="closeAlert($index)" >
+        {{ alert.msg }}
+      </alert>
+    </div>
+
+    <form name="settingsForm" class="form-horizontal" ng-submit="saveSettings()" novalidate>
+      <div class="form-group" show-errors>
+        <label for="company-title" class="control-label col-lg-2 col-md-3">
+          Название компании:
+        </label>
+        <div class="col-lg-10 col-md-9">
+          <input id="company-title" type="text" class="form-control" name="company" ng-model="settings.title" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="invoice-edit-period" class="control-label col-lg-2 col-md-3">
+          Редактировать не старше (дней):
+        </label>
+        <div class="col-lg-10 col-md-9">
+          <number-only-input input-id="'invoice-edit-period'" input-max="999" input-value="settings.invoiceEditPeriod"></number-only-input>
+        </div>
+      </div>
+
+      <!--<div class="form-group" ng-hide="true">-->
+        <!--<div>-->
+          <!--Тема оформления:-->
+        <!--</div>-->
+        <!--<div class="btn-group">-->
+          <!--<label class="btn btn-sm btn-default" ng-model="settings.theme" btn-radio="'standart'">-->
+            <!--Стандартная-->
+          <!--</label>-->
+          <!--<label class="btn btn-sm btn-default" ng-model="settings.theme" btn-radio="'dark'">-->
+            <!--Темная-->
+          <!--</label>-->
+          <!--<label class="btn btn-sm btn-default" ng-model="settings.theme" btn-radio="'blue'">-->
+            <!--Синяя-->
+          <!--</label>-->
+        <!--</div>-->
+      <!--</div>-->
+
+      <div class="text-right">
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="panel-footer">
+    <div>
+      <button type="button" class="btn btn-info" ng-click="exportDb()">Экспорт базы данных</button>
+      <input id="export-db-file" nwsaveas="database.sqlite" type="file" ng-hide="true">
+
+      <button type="button" class="btn btn-success" ng-click="importDb()">Импорт базы данных</button>
+      <input id="import-db-file" type="file" ng-hide="true">
+    </div>
+  </div>
+</div>

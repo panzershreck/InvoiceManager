@@ -1,0 +1,54 @@
+<div class="panel panel-default hidden-print">
+  <div class="panel-heading">
+    Заявка
+  </div>
+
+  <div class="panel-body">
+    <form class="form-horizontal">
+      <div class="row">
+        <div class="form-group">
+          <label for="invoice-date" class="control-label col-lg-1 col-md-2">
+            Дата:
+          </label>
+
+          <div class="col-lg-3 col-md-5">
+            <div class="input-group">
+              <input id="invoice-date" name="date" type="text" class="form-control" datepicker-popup="EEEE, d MMMM yyyy"
+                     ng-model="date" current-text="Сегодня" clear-text="Очистить" close-text="Закрыть"
+                     is-open="datepickerOpened" ng-change="generateTable()" ng-required="true">
+
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="openDatepicker($event)">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                  </span>
+            </div>
+          </div>
+
+          <div class="btn-group col-lg-4" role="group">
+            <button type="button" class="btn btn-info" ng-click="yesterday()">Вчера</button>
+            <button type="button" class="btn btn-info" ng-click="today()">Сегодня</button>
+            <button type="button" class="btn btn-info" ng-click="tomorrow()">Завтра</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+
+    <div ng-show="isEmpty && isGenerated">
+      За этот день накладных не найдено
+    </div>
+  </div>
+
+  <div class="table-container" ng-hide="isEmpty">
+    <div ng-include="'client/views/request/footer.html'"></div>
+
+    <div ng-include="'client/views/request/requestTable.html'"></div>
+
+    <div ng-include="'client/views/request/footer.html'"></div>
+  </div>
+</div>
+
+<div class="visible-print print-table-container">
+  <div ng-include="'client/views/request/requestTable.html'"></div>
+</div>

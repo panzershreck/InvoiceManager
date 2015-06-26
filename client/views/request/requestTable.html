@@ -1,0 +1,40 @@
+<table class="table table-bordered table-striped">
+  <thead>
+  <tr>
+    <th>
+      {{ date | date : 'fullDate' }}
+    </th>
+    <th ng-repeat="product in products" class="rotate">
+      <div>
+        <span>{{ product.shortTitle || product.title }}</span>
+      </div>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="invoice in request">
+    <td class="text-nowrap">
+      <strong>
+        {{ invoice.clientTitle }}
+      </strong>
+    </td>
+    <td ng-repeat="product in products">
+      {{ invoice.products[product.id] }}
+    </td>
+  </tr>
+  </tbody>
+  <tfoot>
+  <tr>
+    <td>
+      <strong>
+        Итого:
+      </strong>
+    </td>
+    <td ng-repeat="product in products">
+      <strong>
+        {{ totals[product.id] }}
+      </strong>
+    </td>
+  </tr>
+  </tfoot>
+</table>

@@ -1,0 +1,109 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Продукция
+  </div>
+  <div class="panel-body">
+    <div class="alert-container">
+      <alert class="animate-if" ng-repeat="alert in alerts" type="{{ alert.type }}" close="closeAlert($index)" >
+        {{ alert.msg }}
+      </alert>
+    </div>
+
+    <form name="productForm" class="form-inline well" ng-submit="add()" novalidate>
+      <div class="form-group" show-errors ng-class="{ 'has-error': product.errors.title }">
+        <label for="productTitle" class="control-label">
+          Название:
+        </label>
+
+        <input id="productTitle" name="title" ng-model="product.title" class="form-control" type="text" required>
+      </div>
+
+      <div class="form-group" show-errors ng-class="{ 'has-error': product.errors.title }">
+        <label for="productShortTitle" class="control-label">
+          Сокращение:
+        </label>
+
+        <input id="productShortTitle" name="shortTitle" ng-model="product.shortTitle" class="form-control" type="text">
+      </div>
+
+      <!--<div class="form-group" show-errors>-->
+        <!--<label for="productUnits" class="control-label">-->
+          <!--Единицы измерения:-->
+        <!--</label>-->
+
+        <!--<select id="productUnits" name="units" ng-model="productionCtrl.product.units" class="form-control"-->
+                <!--ng-options="units for units in productionCtrl.units" required></select>-->
+      <!--</div>-->
+
+      <div class="form-group" show-errors ng-class="{ 'has-error': product.errors.price }">
+        <label for="productPrice" class="control-label">
+          Цена:
+        </label>
+
+        <input id="productPrice" name="price" ng-model="product.price" class="form-control"
+               type="text" required>
+      </div>
+
+      <button type="submit" class="btn btn-default">Добавить</button>
+    </form>
+
+    <div ng-hide="products.length > 0">
+      Ничего не найдено
+    </div>
+  </div>
+
+  <div class="editable-list-header list-group-item">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
+      Название
+    </div>
+    <div class="col-md-2">
+      Сокращение
+    </div>
+    <div class="col-md-1">
+      Цена
+    </div>
+    <div class="col-md-2">
+      Создан
+    </div>
+    <div class="col-md-2">
+      Обновлен
+    </div>
+    <div class="col-md-1">
+    </div>
+  </div>
+
+  <ul class="list-group editable-list" as-sortable="dragControlListeners" data-ng-model="products" ng-show="products.length > 0">
+    <li class="list-group-item" ng-repeat="product in products | orderBy : 'position'" as-sortable-item>
+      <div class="col-md-1" as-sortable-item-handle>
+        <span class="glyphicon glyphicon-move"></span>
+      </div>
+      <div class="col-md-3">
+        <input type="text" ng-model="product.title" class="form-control"
+               ng-disabled="!product.editable" ng-class="{ readonly: !product.editable }">
+      </div>
+      <div class="col-md-2">
+        <input type="text" ng-model="product.shortTitle" class="form-control"
+               ng-disabled="!product.editable" ng-class="{ readonly: !product.editable }">
+      </div>
+      <div class="col-md-1">
+        <input class="form-control" type="text" ng-model="product.price"
+               ng-disabled="!product.editable" ng-class="{ readonly: !product.editable }">
+      </div>
+      <div class="col-md-2">
+        {{ product.createdAt | date : 'medium' }}
+      </div>
+      <div class="col-md-2">
+        {{ product.updatedAt | date : 'medium' }}
+      </div>
+      <div class="col-md-1">
+        <span class="glyphicon glyphicon-edit hidden-print text-info" tooltip="Редактировать"
+              ng-click="product.editable = !product.editable" ng-hide="product.editable"></span>
+
+        <span class="glyphicon glyphicon-ok text-success" tooltip="Сохранить" ng-click="update(product)" ng-show="product.editable"></span>
+
+        <span class="glyphicon glyphicon-remove text-danger" tooltip="Удалить" ng-click="removeProduct(product, $index)"></span>
+      </div>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,84 @@
+<table class="invoice-table table table-hover table-striped">
+  <thead>
+  <tr>
+    <th class="col-lg-1 col-md-1">
+      № п.п.
+    </th>
+    <th class="col-lg-5 col-md-5">
+      Наименование
+    </th>
+    <!--<th class="col-lg-1 col-md-2">-->
+    <!--Единицы измерения-->
+    <!--</th>-->
+    <th class="col-lg-2 col-md-2">
+      Цена
+    </th>
+    <th class="col-lg-2 col-md-2">
+      Количество
+    </th>
+    <th class="col-lg-2 col-md-2">
+      Сумма
+    </th>
+  </tr>
+  <tr class="filters">
+    <td>
+      <label for="name-filter" class="control-label">
+        Фильтр:
+      </label>
+    </td>
+    <td>
+      <input id="name-filter" type="text" class="form-control" ng-model="productFilter.name">
+    </td>
+    <!--<td class="col-lg-1 col-md-2">-->
+      <!--<input type="text" class="form-control" ng-model="productFilter.units">-->
+    <!--</td>-->
+    <td>
+      <input type="text" class="form-control" ng-model="productFilter.price">
+    </td>
+    <td>
+      <input type="text" class="form-control" ng-model="productFilter.count">
+    </td>
+    <td>
+      <input type="text" class="form-control" ng-model="productFilter.total">
+    </td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="product in products | filter : productFilter" ng-class="{ 'text-success': product.count > 0 }">
+    <td>
+      {{ $index + 1 }}
+    </td>
+    <td>
+      <label for="product-count-{{ product._id }}">
+        {{ product.title }}
+      </label>
+    </td>
+    <!--<td>-->
+      <!--{{ product.units }}-->
+    <!--</td>-->
+    <td>
+      {{ product.invoiceProducts.price }}
+    </td>
+    <td>
+      <number-only-input input-id="'product-count-' + product._id" input-min="0" input-max="999" input-value="product.invoiceProducts.count"></number-only-input>
+      <span class="glyphicon glyphicon-remove text-danger" tooltip="Удалить" ng-click="product.invoiceProducts.count = 0"></span>
+    </td>
+    <td>
+      {{ product.invoiceProducts.price * product.invoiceProducts.count }}
+    </td>
+  </tr>
+  </tbody>
+  <tfoot>
+  <tr>
+    <td colspan="3">
+      Итого:
+    </td>
+    <td>
+      <strong>{{ getTotal().count }}</strong>
+    </td>
+    <td>
+      <strong>{{ getTotal().sum }}</strong>
+    </td>
+  </tr>
+  </tfoot>
+</table>

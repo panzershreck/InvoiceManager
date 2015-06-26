@@ -1,0 +1,57 @@
+<div class="panel panel-default" disable-ng-animate>
+  <div class="panel-heading">Накладные</div>
+
+  <div class="panel-body">
+    <div ng-hide="invoices.length > 0">
+      Ничего не найдено
+    </div>
+  </div>
+
+  <table class="clients-table table table-bordered table-hover table-striped" ng-show="invoices.length > 0">
+    <thead>
+    <tr>
+      <th class="col-lg-1">Номер</th>
+      <th class="col-lg-1">Дата</th>
+      <th class="col-lg-5">Клиент</th>
+      <th class="col-lg-2">Сумма</th>
+      <th class="col-lg-2">Обновлена</th>
+      <th class="col-lg-1"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="invoice in invoices" ng-class="{ 'text-success': isCurrentDate(invoice.date)}">
+      <td>
+        {{ invoice.id }}
+      </td>
+      <td>
+        {{ invoice.date | date: 'mediumDate' }}
+      </td>
+      <td>
+        {{ invoice.Client.title }}
+      </td>
+      <td>
+        {{ invoice.sum }}
+      </td>
+      <td>
+        {{ invoice.updatedAt | date: 'medium' }}
+      </td>
+      <td>
+        <span class="glyphicon glyphicon-copy text-success" tooltip="Копировать" ng-click="copy(invoice)"></span>
+        <span ng-show="isEditable(invoice)" class="glyphicon glyphicon-edit text-info" tooltip="Редактировать" ng-click="edit(invoice)"></span>
+        <span ng-show="isEditable(invoice)" class="glyphicon glyphicon-remove text-danger" tooltip="Удалить" ng-click="remove(invoice, $index)"></span>
+      </td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+      <td colspan="6" class="text-center">
+        <pagination total-items="totalItems" ng-model="currentPage" max-size="20" class="pagination-sm" boundary-links="true"
+                    ng-change="updateList()" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;"
+                    last-text="&raquo;" num-pages="numPages" items-per-page="itemsPerPage"></pagination>
+
+        <div class="well well-sm">Страница: {{ currentPage }} / {{ numPages }}</div>
+      </td>
+    </tr>
+    </tfoot>
+  </table>
+</div>

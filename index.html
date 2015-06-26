@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="AppController as appCtrl">
+<head>
+  <meta charset="utf-8">
+  <title>Менеджер накладных</title>
+  <link rel="stylesheet" type="text/css" href="css/vendor/select.min.css">
+  <link rel="stylesheet" type="text/css" href="css/vendor/ng-sortable.min.css">
+  <link rel="stylesheet" type="text/css" ng-href="css/vendor/bootstrap-{{ settings.theme || 'dark' }}.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+
+<div class="window-actions hidden-print">
+  <div class="pull-right">
+    <button type="button" class="btn btn-xs btn-default glyphicon glyphicon-minus" ng-click="appCtrl.minimizeWindow()"></button>
+    <button type="button" class="btn btn-xs btn-default glyphicon glyphicon-collapse-down" ng-click="appCtrl.restoreWindow()"></button>
+    <button type="button" class="btn btn-xs btn-default glyphicon glyphicon-stop" ng-click="appCtrl.maximizeWindow()"></button>
+    <button type="button" class="btn btn-xs btn-default glyphicon glyphicon-remove" ng-click="appCtrl.closeWindow()"></button>
+  </div>
+  <div class="text-center">
+    <strong>{{ appCtrl.pageTitle }}</strong>
+  </div>
+</div>
+
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li ng-class="{ active: appCtrl.isActive('/invoice') }">
+        <a href="#/invoice">Накладная</a>
+      </li>
+      <li ng-class="{ active: appCtrl.isActive('/request') }">
+        <a href="#/request">Заявка</a>
+      </li>
+      <li ng-class="{ active: appCtrl.isActive('/settings') }">
+        <a href="#/settings">
+          Настройки
+        </a>
+      </li>
+      <li class="dropdown" dropdown>
+        <a href="#" class="dropdown-toggle" role="button" aria-expanded="false" dropdown-toggle>
+          Списки
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+          <li>
+            <a href="#/production">Продукция</a>
+          </li>
+          <li>
+            <a href="#/clients">Клиенты</a>
+          </li>
+          <li>
+            <a href="#/invoices">Накладные</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="main-content">
+  <div ng-view></div>
+</div>
+
+<script src="js/vendor/angular.min.js"></script>
+
+<script src="js/vendor/angular-route.min.js"></script>
+<script src="js/vendor/angular-animate.min.js"></script>
+
+<script src="js/vendor/ui-bootstrap.min.js"></script>
+<script src="js/vendor/ui-bootstrap-tpls.min.js"></script>
+<script src="js/vendor/showErrors.min.js"></script>
+<script src="js/vendor/select.min.js"></script>
+<script src="js/vendor/angular-sanitize.min.js"></script>
+<script src="js/vendor/ng-sortable.min.js"></script>
+
+<script src="js/vendor/angular-locale_ru-ru.js"></script>
+
+<script src="client/app.js"></script>
+
+<script src="client/controllers/appCtrl.js"></script>
+<script src="client/controllers/invoiceCtrl.js"></script>
+<script src="client/controllers/requestCtrl.js"></script>
+<script src="client/controllers/settingsCtrl.js"></script>
+<script src="client/controllers/productionListCtrl.js"></script>
+<script src="client/controllers/clientsListCtrl.js"></script>
+<script src="client/controllers/invoicesListCtrl.js"></script>
+
+<script src="client/models.js"></script>
+<script src="client/services.js"></script>
+<script src="client/directives.js"></script>
+<script src="client/filters.js"></script>
+
+</body>
+</html>

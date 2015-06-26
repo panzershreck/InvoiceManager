@@ -1,0 +1,113 @@
+<div>
+  <div class="invoice-for-print col-xs-6" ng-repeat="invoice in invoicesForPrint track by $index">
+    <h5 class="text-center text-uppercase">Накладная №{{ invoice.id }}</h5>
+
+    <div class="text-center">
+      {{ invoice.date | date : 'mediumDate' }}
+    </div>
+
+    <div class="row">
+      <div class="col-xs-3">
+        От кого:
+      </div>
+
+      <div class="col-xs-8 print-border-bottom">
+        {{ settings.title }}&nbsp;
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-3">
+        Кому:
+      </div>
+
+      <div class="col-xs-8 print-border-bottom">
+        {{ invoice.Client.title }}&nbsp;
+      </div>
+    </div>
+
+    <table class="invoice-table table table-hover table-striped table-bordered">
+      <thead class="text-center">
+      <tr>
+        <td class="col-xs-1">
+          № п.п.
+        </td>
+        <td class="col-xs-5">
+          Наименование
+        </td>
+        <!--<td class="col-xs-1">-->
+          <!--Единицы измерения-->
+        <!--</td>-->
+        <td class="col-xs-2">
+          Цена
+        </td>
+        <td class="col-xs-2">
+          Количество
+        </td>
+        <td class="col-xs-2">
+          Сумма
+        </td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="product in invoice.Products">
+        <td class="text-center">
+          {{ $index + 1 }}
+        </td>
+        <td>
+          {{ product.title }}
+        </td>
+        <!--<td class="text-right">-->
+          <!--{{ products | getById : product._id : 'units' }}-->
+        <!--</td>-->
+        <td class="text-right">
+          {{ product.price }}
+        </td>
+        <td class="text-right">
+          <div>
+            {{ product.invoiceProducts.count }}
+          </div>
+        </td>
+        <td class="text-right">
+          {{ product.price * product.invoiceProducts.count }}
+        </td>
+      </tr>
+      </tbody>
+      <tfoot>
+      <tr>
+        <td colspan="3">
+          Итого:
+        </td>
+        <td class="text-right">
+          <strong>{{ invoice.totals.count }}</strong>
+        </td>
+        <td class="text-right">
+          <strong>{{ invoice.totals.sum }}</strong>
+        </td>
+      </tr>
+      </tfoot>
+    </table>
+
+    <div class="row">
+      <div class="col-xs-2">
+        М. П.
+      </div>
+      <div class="col-xs-10">
+        <div class="row">
+          <div class="col-xs-2 text-right">
+            Сдал:
+          </div>
+          <div class="col-xs-4 print-border-bottom">
+            &nbsp;
+          </div>
+          <div class="col-xs-2 text-right">
+            Принял:
+          </div>
+          <div class="col-xs-4 print-border-bottom">
+            &nbsp;
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

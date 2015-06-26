@@ -1,0 +1,15 @@
+{
+  "name": "InvoiceManager",
+  "version": "1.0.0",
+  "main": "index.html",
+  "window": {
+    "icon": "invoice-manager-icon.png",
+    "toolbar": false,
+    "frame": false,
+    "position": "mouse",
+    "width": 1100,
+    "height": 700,
+    "min_width": 1100,
+    "min_height": 700
+  }
+}
