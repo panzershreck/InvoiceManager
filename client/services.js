@@ -20,7 +20,6 @@
                     });
 
                     return current || Invoice.build(defaults);
-                    //return Invoice.findOrBuild({ where: { id: current }, include: [Product], defaults: defaults });
                 },
                 getDefault: function () {
                     return Invoice.build(defaults, { include: Product });

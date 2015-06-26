@@ -26,15 +26,6 @@
         <input id="productShortTitle" name="shortTitle" ng-model="product.shortTitle" class="form-control" type="text">
       </div>
 
-      <!--<div class="form-group" show-errors>-->
-        <!--<label for="productUnits" class="control-label">-->
-          <!--Единицы измерения:-->
-        <!--</label>-->
-
-        <!--<select id="productUnits" name="units" ng-model="productionCtrl.product.units" class="form-control"-->
-                <!--ng-options="units for units in productionCtrl.units" required></select>-->
-      <!--</div>-->
-
       <div class="form-group" show-errors ng-class="{ 'has-error': product.errors.price }">
         <label for="productPrice" class="control-label">
           Цена:
@@ -52,58 +43,60 @@
     </div>
   </div>
 
-  <div class="editable-list-header list-group-item">
-    <div class="col-md-1"></div>
-    <div class="col-md-3">
-      Название
-    </div>
-    <div class="col-md-2">
-      Сокращение
-    </div>
-    <div class="col-md-1">
-      Цена
-    </div>
-    <div class="col-md-2">
-      Создан
-    </div>
-    <div class="col-md-2">
-      Обновлен
-    </div>
-    <div class="col-md-1">
-    </div>
-  </div>
-
-  <ul class="list-group editable-list" as-sortable="dragControlListeners" data-ng-model="products" ng-show="products.length > 0">
-    <li class="list-group-item" ng-repeat="product in products | orderBy : 'position'" as-sortable-item>
-      <div class="col-md-1" as-sortable-item-handle>
-        <span class="glyphicon glyphicon-move"></span>
-      </div>
+  <div ng-show="products.length > 0">
+    <div class="editable-list-header list-group-item">
+      <div class="col-md-1"></div>
       <div class="col-md-3">
-        <input type="text" ng-model="product.title" class="form-control"
-               ng-disabled="!product.editable" ng-class="{ readonly: !product.editable }">
+        Название
       </div>
       <div class="col-md-2">
-        <input type="text" ng-model="product.shortTitle" class="form-control"
-               ng-disabled="!product.editable" ng-class="{ readonly: !product.editable }">
+        Сокращение
       </div>
       <div class="col-md-1">
-        <input class="form-control" type="text" ng-model="product.price"
-               ng-disabled="!product.editable" ng-class="{ readonly: !product.editable }">
+        Цена
       </div>
       <div class="col-md-2">
-        {{ product.createdAt | date : 'medium' }}
+        Создан
       </div>
       <div class="col-md-2">
-        {{ product.updatedAt | date : 'medium' }}
+        Обновлен
       </div>
       <div class="col-md-1">
+      </div>
+    </div>
+
+    <ul class="list-group editable-list" as-sortable="dragControlListeners" data-ng-model="products">
+      <li class="list-group-item" ng-repeat="product in products | orderBy : 'position'" as-sortable-item>
+        <div class="col-md-1" as-sortable-item-handle>
+          <span class="glyphicon glyphicon-move"></span>
+        </div>
+        <div class="col-md-3">
+          <input type="text" ng-model="product.title" class="form-control"
+                 ng-disabled="!product.editable" ng-class="{ readonly: !product.editable }">
+        </div>
+        <div class="col-md-2">
+          <input type="text" ng-model="product.shortTitle" class="form-control"
+                 ng-disabled="!product.editable" ng-class="{ readonly: !product.editable }">
+        </div>
+        <div class="col-md-1">
+          <input class="form-control" type="text" ng-model="product.price"
+                 ng-disabled="!product.editable" ng-class="{ readonly: !product.editable }">
+        </div>
+        <div class="col-md-2">
+          {{ product.createdAt | date : 'medium' }}
+        </div>
+        <div class="col-md-2">
+          {{ product.updatedAt | date : 'medium' }}
+        </div>
+        <div class="col-md-1">
         <span class="glyphicon glyphicon-edit hidden-print text-info" tooltip="Редактировать"
               ng-click="product.editable = !product.editable" ng-hide="product.editable"></span>
 
-        <span class="glyphicon glyphicon-ok text-success" tooltip="Сохранить" ng-click="update(product)" ng-show="product.editable"></span>
+          <span class="glyphicon glyphicon-ok text-success" tooltip="Сохранить" ng-click="update(product)" ng-show="product.editable"></span>
 
-        <span class="glyphicon glyphicon-remove text-danger" tooltip="Удалить" ng-click="removeProduct(product, $index)"></span>
-      </div>
-    </li>
-  </ul>
+          <span class="glyphicon glyphicon-remove text-danger" tooltip="Удалить" ng-click="removeProduct(product, $index)"></span>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>

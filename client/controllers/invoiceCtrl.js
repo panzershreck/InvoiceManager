@@ -19,9 +19,11 @@
             Product.findAll({ order: 'position' }).then(function (products) {
                 productsList = products;
 
-                getInvoiceProducts($scope.currentInvoice, products, $filter('getById'), $scope);
+                $scope.$apply(function () {
+                    getInvoiceProducts($scope.currentInvoice, products, $filter('getById'), $scope);
 
-                $scope.page.isCollapsed = false;
+                    $scope.page.isCollapsed = false;
+                });
             });
 
             Client.findAll().then(function (clients) {
@@ -57,7 +59,7 @@
                 $scope.currentInvoice
                     .set({
                         date: $scope.currentInvoice.date,
-                        timestamp: $scope.currentInvoice.date.getTime(),
+                        timestamp: $scope.currentInvoice.date.getTime()
                     })
                     .save()
                     .then(function (invoice) {
@@ -76,10 +78,6 @@
                                     $scope.currentInvoice = invoice;
                                     $scope.getTotal();
 
-                                    $scope.products.forEach(function (product) {
-                                        product.invoiceProducts.count = 0;
-                                    });
-
                                     InvoiceManager.setCurrent(invoice.id);
 
                                     $scope.isSaving = false;
@@ -95,6 +93,11 @@
 
             $scope.reset = function () {
                 $scope.currentInvoice = InvoiceManager.getDefault();
+
+                $scope.products.forEach(function (product) {
+                    product.invoiceProducts.count = 0;
+                });
+
                 InvoiceManager.refresh();
 
                 $scope.invoiceForm.$setPristine();
@@ -160,17 +163,15 @@
             });
 
             function getInvoiceProducts(invoice, products, filter, $scope) {
-                $scope.$apply(function () {
-                    $scope.products = products.map(function (product) {
-                        var prod = (invoice.Products && invoice.Products.length > 0) ? filter(invoice.Products, product.id, 'invoiceProducts') : null;
+                $scope.products = products.map(function (product) {
+                    var prod = (invoice.Products && invoice.Products.length > 0) ? filter(invoice.Products, product.id, 'invoiceProducts') : null;
 
-                        product.invoiceProducts = {
-                            count: prod ? prod.count : null,
-                            price: product.price
-                        };
+                    product.invoiceProducts = {
+                        count: prod ? prod.count : null,
+                        price: product.price
+                    };
 
-                        return product;
-                    });
+                    return product;
                 });
             }
         })
