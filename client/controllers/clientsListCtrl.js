@@ -4,7 +4,7 @@
             $scope.clients = [];
             $scope.client = {};
 
-            Client.findAll().then(function (clients) {
+            Client.findAll({ order: 'title' }).then(function (clients) {
                 $scope.$apply(function () {
                     $scope.clients = clients;
                 });
@@ -78,6 +78,12 @@
                     });
                 }, function () {
                 });
+            };
+
+            $scope.pressEnter = function(keyEvent, client) {
+                if (keyEvent.which === 13) {
+                    $scope.update(client);
+                }
             };
 
             $scope.closeAlert = AlertsManager.getClose($scope);

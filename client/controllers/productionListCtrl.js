@@ -84,6 +84,12 @@
                 });
             };
 
+            $scope.pressEnter = function(keyEvent, product) {
+                if (keyEvent.which === 13) {
+                    $scope.update(product);
+                }
+            };
+
             $scope.closeAlert = AlertsManager.getClose($scope);
 
             $scope.dragControlListeners = {

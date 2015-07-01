@@ -1,11 +1,13 @@
 (function (angular) {
     angular.module('app')
-        .controller('InvoiceController', function ($scope, $timeout, $filter, Client, Product, Invoice, InvoiceManager, AlertsManager, Utils) {
+        .controller('InvoiceController', function ($scope, $rootScope, $timeout, $filter, Client, Product, Invoice, InvoiceManager, AlertsManager, Utils) {
             $scope.currentInvoice = InvoiceManager.getCurrent();
 
             $scope.printQueue = InvoiceManager.getQueue();
 
-            $scope.productFilter = {};
+            $scope.productFilter = {
+                invoiceProducts: {}
+            };
 
             $scope.products = [];
             $scope.alerts = [];
@@ -39,7 +41,7 @@
 
             $scope.toQueue = function () {
                 $scope.saveInvoice(function () {
-                    $scope.currentInvoice.printCopies = 1;
+                    $scope.currentInvoice.printCopies = $rootScope.settings.copiesDefault;
 
                     InvoiceManager.addToQueue($scope.currentInvoice);
 
@@ -95,7 +97,7 @@
                 $scope.currentInvoice = InvoiceManager.getDefault();
 
                 $scope.products.forEach(function (product) {
-                    product.invoiceProducts.count = 0;
+                    product.invoiceProducts.count = null;
                 });
 
                 InvoiceManager.refresh();

@@ -50,7 +50,8 @@
 
     Settings = sequelize.define('Settings', {
         title: { type: Sequelize.STRING, defaultValue: '' },
-        invoiceEditPeriod: { type: Sequelize.INTEGER, defaultValue: 0 }
+        invoiceEditPeriod: { type: Sequelize.INTEGER, defaultValue: 0 },
+        copiesDefault: { type: Sequelize.INTEGER, defaultValue: 2 }
     });
 
     Invoice.belongsToMany(Product, { through: InvoiceProducts });

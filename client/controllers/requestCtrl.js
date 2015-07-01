@@ -27,9 +27,9 @@
                 },
                 include: [Product, Client]
             }).then(function (invoices) {
-                $scope.isEmpty = invoices.length === 0;
-
                 $scope.$apply(function () {
+                    $scope.isEmpty = invoices.length === 0;
+
                     invoices.forEach(function (invoice) {
                         $scope.request[invoice.id] = {
                             clientTitle: invoice.Client.title,
@@ -42,9 +42,9 @@
                             $scope.request[invoice.id].products[product.id] = product.invoiceProducts.count;
                         });
                     });
-                });
 
-                $scope.isGenerated = true;
+                    $scope.isGenerated = true;
+                });
             });
         };
 

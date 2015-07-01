@@ -54,17 +54,17 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="client in clients | orderBy : 'title'">
+    <tr ng-repeat="client in clients">
       <td ng-class="{ 'has-error': client.errors.title }">
-        <input class="form-control" type="text" ng-model="client.title"
+        <input class="form-control" type="text" ng-model="client.title" ng-keypress="pressEnter($event, client)"
                ng-disabled="!client.editable" ng-class="{ readonly: !client.editable }">
       </td>
       <td ng-class="{ 'has-error': client.errors.address }">
-        <input class="form-control" type="text" ng-model="client.address"
+        <input class="form-control" type="text" ng-model="client.address" ng-keypress="pressEnter($event, client)"
                ng-disabled="!client.editable" ng-class="{ readonly: !client.editable }">
       </td>
       <td ng-class="{ 'has-error': client.errors.phone }">
-        <input class="form-control" type="text" ng-model="client.phone"
+        <input class="form-control" type="text" ng-model="client.phone" ng-keypress="pressEnter($event, client)"
                ng-disabled="!client.editable" ng-class="{ readonly: !client.editable }">
       </td>
       <td>

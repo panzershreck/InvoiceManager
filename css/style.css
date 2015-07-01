@@ -153,13 +153,8 @@ th.rotate > div {
     -webkit-transform: rotate(0deg); }
   to {
     -webkit-transform: rotate(360deg); } }
-.ui-select-container .form-control {
-  width: 100%; }
-.ui-select-container .ui-select-bootstrap > .ui-select-choices {
-  max-height: 500px; }
-
 .ui-select-bootstrap > .ui-select-choices {
-  max-height: none; }
+  max-height: 50vh; }
 
 @media print {
   @page {
